@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import networking.create.CreateClient;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CreateAnActivityVM
 {
@@ -27,7 +28,7 @@ public class CreateAnActivityVM
       "12:30", "13:00", "14:00", "14:30", "15:00", "16:00", "17:00");
 
   private final IntegerProperty id = new SimpleIntegerProperty();
-  private final StringProperty price = new SimpleStringProperty("");
+  private final IntegerProperty price = new SimpleIntegerProperty(0);
   private final StringProperty description = new SimpleStringProperty("");
   private final StringProperty name = new SimpleStringProperty("");
   private final StringProperty address = new SimpleStringProperty("");
@@ -36,12 +37,15 @@ public class CreateAnActivityVM
   private final StringProperty city = new SimpleStringProperty("");
   private final StringProperty type = new SimpleStringProperty("");
 
+  private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(
+      "yyyy-MM-dd");
+
   public CreateAnActivityVM(CreateClient createService)
   {
     this.createService = createService;
   }
 
-  public StringProperty priceProperty()
+  public IntegerProperty priceProperty()
   {
     return price;
   }
@@ -51,9 +55,14 @@ public class CreateAnActivityVM
     return description;
   }
 
-  public String getPrice()
+  public int getPrice()
   {
     return price.get();
+  }
+
+  public void setPrice(int value)
+  {
+    price.set(value);
   }
 
   public String getDescription()
@@ -116,6 +125,11 @@ public class CreateAnActivityVM
     return address.get();
   }
 
+  public String getDateAsString()
+  {
+    return date.get() != null ? date.get().format(dateFormatter) : "";
+  }
+
   public LocalDate getDate()
   {
     return date.get();
@@ -136,24 +150,29 @@ public class CreateAnActivityVM
     return type.get();
   }
 
+  public String getPriceAsString()
+  {
+    return String.valueOf(price.get());
+  }
+
   public void save()
   {
     System.out.println("Saving");
     System.out.println("Name: " + getName());
     System.out.println("Address: " + getAddress());
-    System.out.println("Date: " + getDate());
+    System.out.println("Date: " + getDateAsString());
     System.out.println("Time: " + getTime());
     System.out.println("City: " + getCity());
     System.out.println("Type: " + getType());
-    System.out.println("Price: " + getPrice());
+    System.out.println("Price: " + getPriceAsString());
     System.out.println("Description: " + getDescription());
 
-    // logic for adding in the system
     try
     {
       createService.createActivity(
           new CreateActivityRequest(id.get(), name.get(), address.get(),
-              type.get(), city.get(), date.get(), time.get(), price.get(), description.get()));
+              type.get(), city.get(), getDateAsString(), time.get(),
+              price.get(), description.get()));
     }
     catch (Exception e)
     {

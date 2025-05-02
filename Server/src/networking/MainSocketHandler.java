@@ -22,6 +22,7 @@ import utilities.LogLevel;
 
 public class MainSocketHandler implements Runnable
 {
+  
   private final Socket clientSocket;
   private final ServiceProvider serviceProvider;
   private final Logger logger;
@@ -40,8 +41,7 @@ public class MainSocketHandler implements Runnable
     {
       ObjectInputStream incomingData = new ObjectInputStream(clientSocket.getInputStream());
       ObjectOutputStream outgoingData = new ObjectOutputStream(clientSocket.getOutputStream());
-      handleRequestWithErrorHandling(incomingData, outgoingData,
-          createSearchDao);
+      handleRequestWithErrorHandling(incomingData, outgoingData);
     }
     catch (IOException e)
     {
@@ -59,12 +59,11 @@ public class MainSocketHandler implements Runnable
     }
   }
 
-  private void handleRequestWithErrorHandling(ObjectInputStream incomingData, ObjectOutputStream outgoingData,
-      CreateSearchDAO createSearchDao) throws IOException
+  private void handleRequestWithErrorHandling(ObjectInputStream incomingData, ObjectOutputStream outgoingData) throws IOException
   {
     try
     {
-      handleRequest(incomingData, outgoingData, createSearchDao);
+      handleRequest(incomingData, outgoingData);
     }
     catch (NotFoundException | InvalidActionException | ValidationException e)
     {
@@ -95,8 +94,7 @@ public class MainSocketHandler implements Runnable
     }
   }
 
-  private void handleRequest(ObjectInputStream incomingData, ObjectOutputStream outgoingData,
-      CreateSearchDAO createSearchDao)
+  private void handleRequest(ObjectInputStream incomingData, ObjectOutputStream outgoingData)
       throws IOException, ClassNotFoundException, SQLException
   {
     Request request = (Request) incomingData.readObject();
@@ -105,7 +103,6 @@ public class MainSocketHandler implements Runnable
     RequestHandler handler = switch (request.handler())
     {
       case "create" -> serviceProvider.getCreateRequestHandler();
-      case "search" -> serviceProvider.getSearchRequestHandler(createSearchDao);
       default -> throw new IllegalStateException("Unexpected value: " + request.handler());
     };
 

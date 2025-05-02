@@ -63,7 +63,40 @@ public class CreateAnActivityViewController implements Controller
     cityComboBox.valueProperty().bindBidirectional(viewModel.cityProperty());
     typeComboBox.setItems(viewModel.getTypes());
     typeComboBox.valueProperty().bindBidirectional(viewModel.typeProperty());
-    priceInput.textProperty().bindBidirectional(viewModel.priceProperty());
+    // Use TextFormatter to convert between String in the UI and Integer in the ViewModel
+    priceInput.setTextFormatter(new javafx.scene.control.TextFormatter<>(change -> {
+      String newText = change.getControlNewText();
+      if (newText.isEmpty()) {
+        return change;
+      }
+      try {
+        Integer.parseInt(newText);
+        return change;
+      } catch (NumberFormatException e) {
+        return null;
+      }
+    }));
+
+    // Bind price TextField to the IntegerProperty
+    priceInput.textProperty().addListener((observable, oldValue, newValue) -> {
+      if (!newValue.isEmpty()) {
+        try {
+          viewModel.priceProperty().set(Integer.parseInt(newValue));
+        } catch (NumberFormatException e) {
+          // Reset to the previous valid value
+          if (!oldValue.isEmpty()) {
+            priceInput.setText(oldValue);
+          } else {
+            priceInput.setText("0");
+          }
+        }
+      } else {
+        viewModel.priceProperty().set(0);
+      }
+    });
+
+    // Initialize with current value
+    priceInput.setText(String.valueOf(viewModel.getPrice()));
     descriptionInput.textProperty().bindBidirectional(
         viewModel.descriptionProperty());
   }

@@ -46,8 +46,8 @@ public class SearchViewController implements Controller
     cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-    dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-    timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+    dateColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDate"));
+    timeColumn.setCellValueFactory(new PropertyValueFactory<>("meetingTime"));
     priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     createAnActivityButton.setOnAction(e -> onCreateAnActivityButton());
