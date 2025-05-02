@@ -1,4 +1,8 @@
 package startup;
 
-public enum ViewType {
+public enum ViewType
+{
+  CREATE,
+  SEARCH,
+  DESCRIPTION
 }
