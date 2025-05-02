@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -13,10 +14,10 @@
    <children>
       <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="585.0" text="Create a new activity">
          <font>
-            <Font size="30.0" />
+            <Font size="20.0" />
          </font>
          <VBox.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="5.0" />
          </VBox.margin>
       </Label>
       <VBox prefHeight="300.0" prefWidth="100.0" style="-fx-background-color: FFECDB; -fx-padding: 20; -fx-background-radius: 10;">
@@ -29,12 +30,18 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nameLabel" prefHeight="17.0" prefWidth="55.0" text="[name]">
+                  <TextField fx:id="nameInput" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: AFDDFF; -fx-background-radius: 10; -fx-border-radius: 10;">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
-                  </Label>
+                  </TextField>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -43,12 +50,15 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="addressLabel" text="[address]">
+                  <TextField fx:id="addressInput" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: AFDDFF; -fx-background-radius: 10; -fx-border-radius: 10;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
-                  </Label>
+                  </TextField>
                </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -59,7 +69,7 @@
                   </Label>
                   <DatePicker fx:id="dateInput" prefHeight="30.0" prefWidth="140.0" promptText="Date" style="-fx-background-color: AFDDFF;">
                      <HBox.margin>
-                        <Insets left="14.0" />
+                        <Insets left="30.0" />
                      </HBox.margin>
                   </DatePicker>
                   <Label prefHeight="20.0" prefWidth="40.0" text="Time">
@@ -76,6 +86,9 @@
                      </HBox.margin>
                   </ComboBox>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -89,7 +102,7 @@
                   </Label>
                   <ComboBox fx:id="cityComboBox" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: AFDDFF; -fx-background-radius: 10; -fx-border-radius: 10;">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
                   <Label prefHeight="20.0" prefWidth="40.0" text="Type">
@@ -102,7 +115,33 @@
                   </Label>
                   <ComboBox fx:id="typeComboBox" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: AFDDFF; -fx-background-radius: 10; -fx-border-radius: 10;" />
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Price">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="priceInput" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: AFDDFF; -fx-background-radius: 10; -fx-border-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="35.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="Description">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="descriptionInput" prefHeight="20.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: AFDDFF; -fx-background-radius: 10; -fx-border-radius: 10;" />
          </children>
       </VBox>
       <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButton" style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 8 16;" text="Save">

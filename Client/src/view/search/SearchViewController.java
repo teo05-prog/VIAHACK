@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.entities.Activity;
 import startup.ViewHandler;
+import startup.ViewType;
 import viewModel.SearchVM;
 import view.common.Controller;
 
@@ -54,7 +55,9 @@ public class SearchViewController implements Controller
     continueButton.setOnAction(e-> onContinueButton());
   }
 
-  private void onCreateAnActivityButton(){}
+  private void onCreateAnActivityButton(){
+    ViewHandler.showView(ViewType.CREATE);
+  }
 
   private void onContinueButton(){
     Activity selected = activityTable.getSelectionModel().getSelectedItem();

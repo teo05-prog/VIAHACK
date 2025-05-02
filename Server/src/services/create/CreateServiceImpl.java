@@ -1,8 +1,6 @@
 package services.create;
 
 import dtos.create.CreateActivityRequest;
-import dtos.create.CreateClubRequest;
-import model.entities.Club;
 import persistance.create.CreateDAO;
 
 import java.sql.SQLException;

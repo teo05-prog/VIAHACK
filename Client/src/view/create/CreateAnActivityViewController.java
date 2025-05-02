@@ -9,20 +9,22 @@ import java.time.LocalDate;
 
 public class CreateAnActivityViewController implements Controller
 {
-  @FXML private Label nameLabel;
-  @FXML private Label addressLabel;
+  @FXML private TextField nameInput;
+  @FXML private TextField addressInput;
   @FXML private DatePicker dateInput;
   @FXML private ComboBox<String> timeComboBox;
   @FXML private ComboBox<String> cityComboBox;
   @FXML private ComboBox<String> typeComboBox;
+  @FXML private TextField priceInput;
+  @FXML private TextField descriptionInput;
   @FXML private Button saveButton;
 
   private final CreateAnActivityVM viewModel;
 
   public void onSaveButton()
   {
-    String name = nameLabel.getText();
-    String address = addressLabel.getText();
+    String name = nameInput.getText();
+    String address = addressInput.getText();
     LocalDate date = dateInput.getValue();
     String time = timeComboBox.getValue();
     String city = cityComboBox.getValue();
@@ -34,6 +36,7 @@ public class CreateAnActivityViewController implements Controller
       showAlert("Error", "Please fill all the required fields");
       return;
     }
+    viewModel.save();
   }
 
   private void showAlert(String title, String message)
@@ -51,12 +54,18 @@ public class CreateAnActivityViewController implements Controller
   }
 
   public void initialize(){
-    nameLabel.textProperty().bind(viewModel.nameProperty());
-    addressLabel.textProperty().bind(viewModel.addressProperty());
+    nameInput.textProperty().bindBidirectional(viewModel.nameProperty());
+    addressInput.textProperty().bindBidirectional(viewModel.addressProperty());
     dateInput.valueProperty().bindBidirectional(viewModel.dateProperty());
+    timeComboBox.setItems(viewModel.getTimes());
     timeComboBox.valueProperty().bindBidirectional(viewModel.timeProperty());
+    cityComboBox.setItems(viewModel.getCities());
     cityComboBox.valueProperty().bindBidirectional(viewModel.cityProperty());
+    typeComboBox.setItems(viewModel.getTypes());
     typeComboBox.valueProperty().bindBidirectional(viewModel.typeProperty());
+    priceInput.textProperty().bindBidirectional(viewModel.priceProperty());
+    descriptionInput.textProperty().bindBidirectional(
+        viewModel.descriptionProperty());
   }
 
 }

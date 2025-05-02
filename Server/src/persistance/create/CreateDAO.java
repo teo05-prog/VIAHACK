@@ -1,31 +1,19 @@
 package persistance.create;
 
-import model.entities.Club;
-import model.entities.Event;
+import model.entities.Activity;
 
 import java.util.List;
 
 public interface CreateDAO
 {
-  public Club createClub(String name, String type, String address, String city, int members, String meetingDate,
-      String meetingTime, String description);
-
-  public Event createEvent(String name, String type, String address, String city, String meetingDate,
+  public Activity create(String name, String type, String address, String city, String meetingDate,
       String meetingTime, int price, String description);
 
-  public Club readByClubId(int id);
+  public Activity readById(int id);
 
-  public Event readByEventId(int id);
+  public List<Activity> readByName(String name);
 
-  public List<Club> readByName(String name);
+  public void update(Activity activity);
 
-  public List<Event> readByEventName(String name);
-
-  public void updateClub(Club club);
-
-  public void updateEvent(Event event);
-
-  public void deleteClub(Club club);
-
-  public void deleteEvent(Event event);
+  public void delete(Activity activity);
 }

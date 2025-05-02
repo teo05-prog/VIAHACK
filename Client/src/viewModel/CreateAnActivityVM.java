@@ -1,9 +1,14 @@
 package viewModel;
 
+import dtos.create.CreateActivityRequest;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import networking.create.CreateClient;
 
 import java.time.LocalDate;
@@ -11,6 +16,19 @@ import java.time.LocalDate;
 public class CreateAnActivityVM
 {
   private final CreateClient createService;
+  private final ObservableList<String> cities = FXCollections.observableArrayList(
+      "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
+      "Frederiksberg", "Roskilde", "Vejle", "Kolding");
+  private final ObservableList<String> types = FXCollections.observableArrayList(
+      "Music", "Sports", "Technology", "Art", "Literature", "Gaming", "Cooking",
+      "Fitness", "Film", "Nature");
+
+  private final ObservableList<String> times = FXCollections.observableArrayList(
+      "12:30", "13:00", "14:00", "14:30", "15:00", "16:00", "17:00");
+
+  private final IntegerProperty id = new SimpleIntegerProperty();
+  private final StringProperty price = new SimpleStringProperty("");
+  private final StringProperty description = new SimpleStringProperty("");
   private final StringProperty name = new SimpleStringProperty("");
   private final StringProperty address = new SimpleStringProperty("");
   private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
@@ -23,12 +41,49 @@ public class CreateAnActivityVM
     this.createService = createService;
   }
 
-  public StringProperty nameProperty(){
+  public StringProperty priceProperty()
+  {
+    return price;
+  }
+
+  public StringProperty descriptionProperty()
+  {
+    return description;
+  }
+
+  public String getPrice()
+  {
+    return price.get();
+  }
+
+  public String getDescription()
+  {
+    return description.get();
+  }
+
+  public ObservableList<String> getCities()
+  {
+    return cities;
+  }
+
+  public ObservableList<String> getTypes()
+  {
+    return types;
+  }
+
+  public StringProperty nameProperty()
+  {
     return name;
   }
 
-  public StringProperty addressProperty(){
+  public StringProperty addressProperty()
+  {
     return address;
+  }
+
+  public ObservableList<String> getTimes()
+  {
+    return times;
   }
 
   public ObjectProperty<LocalDate> dateProperty()
@@ -36,43 +91,53 @@ public class CreateAnActivityVM
     return date;
   }
 
-  public StringProperty timeProperty(){
+  public StringProperty timeProperty()
+  {
     return time;
   }
 
-  public StringProperty cityProperty(){
+  public StringProperty cityProperty()
+  {
     return city;
   }
 
-  public StringProperty typeProperty() {
+  public StringProperty typeProperty()
+  {
     return type;
   }
 
-  public String getName(){
+  public String getName()
+  {
     return name.get();
   }
 
-  public String getAddress(){
+  public String getAddress()
+  {
     return address.get();
   }
 
-  public LocalDate getDate(){
+  public LocalDate getDate()
+  {
     return date.get();
   }
 
-  public String getTime(){
-    return  time.get();
+  public String getTime()
+  {
+    return time.get();
   }
 
-  public String getCity(){
+  public String getCity()
+  {
     return city.get();
   }
 
-  public String getType(){
-    return city.get();
+  public String getType()
+  {
+    return type.get();
   }
 
-  public void save(){
+  public void save()
+  {
     System.out.println("Saving");
     System.out.println("Name: " + getName());
     System.out.println("Address: " + getAddress());
@@ -80,5 +145,19 @@ public class CreateAnActivityVM
     System.out.println("Time: " + getTime());
     System.out.println("City: " + getCity());
     System.out.println("Type: " + getType());
+    System.out.println("Price: " + getPrice());
+    System.out.println("Description: " + getDescription());
+
+    // logic for adding in the system
+    try
+    {
+      createService.createActivity(
+          new CreateActivityRequest(id.get(), name.get(), address.get(),
+              type.get(), city.get(), date.get(), time.get(), price.get(), description.get()));
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 }

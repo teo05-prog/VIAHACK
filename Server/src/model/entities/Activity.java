@@ -1,6 +1,8 @@
 package model.entities;
 
-public class Activity
+import java.io.Serializable;
+
+public class Activity implements Serializable
 {
   private int id;
   private String name;
@@ -9,10 +11,11 @@ public class Activity
   private String city;
   private String meetingDate;
   private String meetingTime;
+  private int price;
   private String description;
 
-  public Activity(int id, String name, String address, String type, String city,
-      String meetingDate, String meetingTime, String description)
+  public Activity(int id, String name, String type, String address, String city,
+      String meetingDate, String meetingTime, int price, String description)
   {
     this.id = id;
     this.name = name;
@@ -21,6 +24,7 @@ public class Activity
     this.city = city;
     this.meetingDate = meetingDate;
     this.meetingTime = meetingTime;
+    this.price = price;
     this.description = description;
   }
 
@@ -104,6 +108,14 @@ public class Activity
     this.description = description;
   }
 
+  public int getPrice()
+  {
+    return price;
+  }
 
+  public void setPrice(int price)
+  {
+    this.price = price;
+  }
 }
 

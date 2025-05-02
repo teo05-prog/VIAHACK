@@ -4,6 +4,7 @@ import dtos.search.ActivityDTO;
 import dtos.search.SearchRequest;
 import dtos.search.SearchResponse;
 import model.entities.Activity;
+import persistance.search.CreateSearchDAO;
 import services.search.SearchService;
 import services.search.SearchServiceImpl;
 
@@ -14,8 +15,10 @@ import java.util.stream.Collectors;
 public class SearchRequestHandler implements RequestHandler {
   private final SearchService searchService;
 
-  public SearchRequestHandler() {
-    this.searchService = new SearchServiceImpl();
+  public SearchRequestHandler(SearchService searchService,
+      CreateSearchDAO createSearchDao) {
+    this.searchService = new SearchServiceImpl(getCreateSearchDao(
+        createSearchDao));
   }
 
   @Override
@@ -44,5 +47,10 @@ public class SearchRequestHandler implements RequestHandler {
         activity.getMeetingTime(),
         activity.getDescription()
     );
+  }
+
+  public CreateSearchDAO getCreateSearchDao(CreateSearchDAO createSearchDao)
+  {
+    return createSearchDao;
   }
 }

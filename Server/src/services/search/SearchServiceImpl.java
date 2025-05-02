@@ -10,7 +10,7 @@ import java.util.List;
 public class SearchServiceImpl implements SearchService {
   private final SearchDAO searchDAO;
 
-  public SearchServiceImpl() {
+  public SearchServiceImpl(CreateSearchDAO createSearchDao) {
     try {
       this.searchDAO = CreateSearchDAO.getInstance();
     } catch (SQLException e) {

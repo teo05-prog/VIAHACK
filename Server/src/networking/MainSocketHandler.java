@@ -8,6 +8,7 @@ import model.exceptions.ValidationException;
 import networking.exceptions.InvalidActionException;
 import model.exceptions.ServerFailureException;
 import networking.requestHandlers.RequestHandler;
+import persistance.search.CreateSearchDAO;
 import startup.ServiceProvider;
 
 import java.io.IOException;
@@ -39,7 +40,8 @@ public class MainSocketHandler implements Runnable
     {
       ObjectInputStream incomingData = new ObjectInputStream(clientSocket.getInputStream());
       ObjectOutputStream outgoingData = new ObjectOutputStream(clientSocket.getOutputStream());
-      handleRequestWithErrorHandling(incomingData, outgoingData);
+      handleRequestWithErrorHandling(incomingData, outgoingData,
+          createSearchDao);
     }
     catch (IOException e)
     {
@@ -57,11 +59,12 @@ public class MainSocketHandler implements Runnable
     }
   }
 
-  private void handleRequestWithErrorHandling(ObjectInputStream incomingData, ObjectOutputStream outgoingData) throws IOException
+  private void handleRequestWithErrorHandling(ObjectInputStream incomingData, ObjectOutputStream outgoingData,
+      CreateSearchDAO createSearchDao) throws IOException
   {
     try
     {
-      handleRequest(incomingData, outgoingData);
+      handleRequest(incomingData, outgoingData, createSearchDao);
     }
     catch (NotFoundException | InvalidActionException | ValidationException e)
     {
@@ -92,7 +95,8 @@ public class MainSocketHandler implements Runnable
     }
   }
 
-  private void handleRequest(ObjectInputStream incomingData, ObjectOutputStream outgoingData)
+  private void handleRequest(ObjectInputStream incomingData, ObjectOutputStream outgoingData,
+      CreateSearchDAO createSearchDao)
       throws IOException, ClassNotFoundException, SQLException
   {
     Request request = (Request) incomingData.readObject();
@@ -101,6 +105,7 @@ public class MainSocketHandler implements Runnable
     RequestHandler handler = switch (request.handler())
     {
       case "create" -> serviceProvider.getCreateRequestHandler();
+      case "search" -> serviceProvider.getSearchRequestHandler(createSearchDao);
       default -> throw new IllegalStateException("Unexpected value: " + request.handler());
     };
 

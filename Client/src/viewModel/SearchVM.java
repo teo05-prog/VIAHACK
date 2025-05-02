@@ -7,8 +7,11 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.entities.Activity;
-import networking.create.SocketCreateClient;
 import networking.search.SearchClient;
+import dtos.search.SearchRequest;
+
+import java.util.List;
+
 
 public class SearchVM
 {
@@ -17,13 +20,15 @@ public class SearchVM
   public SearchVM(SearchClient searchClient)
   {
     this.searchClient = searchClient;
+    loadActivities();
   }
 
-  private final ObservableList<String> cities = FXCollections.observableArrayList("Horsens",
-      "Aalborg", "Holstebro", "Randers", "Vejle", "Esbjerg", "Slagelse", "Copenhagen", "Næstved", "Kolding", "Sønderborg", "Skanderborg",
-      "Gladsaxe", "Aarhus", "Roskilde", "Odense", "Silkeborg", "Frederiksberg");
-  private final ObservableList<String> types = FXCollections.observableArrayList("Music", "Sports", "Technology", "Art", "Literature", "Gaming",
-      "Cooking", "Fitness", "Film", "Nature");
+  private final ObservableList<String> cities = FXCollections.observableArrayList(
+      "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
+      "Frederiksberg", "Roskilde", "Vejle", "Kolding");
+  private final ObservableList<String> types = FXCollections.observableArrayList(
+      "Music", "Sports", "Technology", "Art", "Literature", "Gaming", "Cooking",
+      "Fitness", "Film", "Nature");
 
   private final StringProperty selectedCity = new SimpleStringProperty();
   private final StringProperty selectedType = new SimpleStringProperty();
@@ -33,35 +38,54 @@ public class SearchVM
 
   private final ObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
 
-  public void loadActivities(){
-    // database connection logic
+  public void loadActivities()
+  {
+    try{
+    SearchRequest request = new SearchRequest(null, null);
+    System.out.println("Sending search request: " + request);
+    List<Activity> activities = searchClient.search(request);
+    System.out.println("Received activities: " + activities.size());
+    allActivities.setAll(activities);
+    applyFilters();}
+    catch (Exception e){
+      System.err.println("Failed to load activities: " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 
-  private void applyFilters(){
+  private void applyFilters()
+  {
     filteredActivities.setAll(allActivities.filtered(activity -> {
-      boolean cityMatch = selectedCity.get() == null || selectedCity.get().equals(activity.getCity());
-      boolean typeMatch = selectedType.get() == null || selectedType.get().equals(activity.getType());
+      boolean cityMatch = selectedCity.get() == null || selectedCity.get()
+          .equals(activity.getCity());
+      boolean typeMatch = selectedType.get() == null || selectedType.get()
+          .equals(activity.getType());
       return cityMatch && typeMatch;
     }));
   }
 
-  public void setSelectedActivity(Activity activity){
+  public void setSelectedActivity(Activity activity)
+  {
     selectedActivity.set(activity);
   }
 
-  public Activity getSelectedActivity(){
-    return  selectedActivity.get();
+  public Activity getSelectedActivity()
+  {
+    return selectedActivity.get();
   }
 
-  public ObjectProperty<Activity> selectedActivityProperty(){
+  public ObjectProperty<Activity> selectedActivityProperty()
+  {
     return selectedActivity;
   }
 
-  public ObservableList<String> getCities(){
+  public ObservableList<String> getCities()
+  {
     return cities;
   }
 
-  public ObservableList<String> getTypes(){
+  public ObservableList<String> getTypes()
+  {
     return types;
   }
 
