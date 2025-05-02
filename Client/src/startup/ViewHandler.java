@@ -3,14 +3,20 @@ package startup;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import networking.description.DescriptionClient;
+import networking.description.SocketDescriptionClient;
 import networking.search.SearchClient;
 import networking.search.SocketSearchClient;
 import networking.create.CreateClient;
 import networking.create.SocketCreateClient;
+import view.create.CreateAnActivityViewController;
+import view.description.DescriptionViewController;
 import view.search.SearchViewController;
 import viewModel.CreateAnActivityVM;
+import viewModel.DescriptionVM;
 import viewModel.SearchVM;
 import view.common.Controller;
+
 
 import java.io.IOException;
 
@@ -37,6 +43,7 @@ public class ViewHandler
       {
         case SEARCH -> openSearchView();
         case CREATE -> openCreateView();
+        case DESCRIPTION -> openDescriptionView();
         default -> throw new RuntimeException("View not found.");
       }
     }
@@ -56,17 +63,25 @@ public class ViewHandler
     openView(viewTitle, viewSubPath, controller);
   }
 
-  public static void openCreateView()
+  public static void openCreateView() throws IOException
   {
     CreateClient client = new SocketCreateClient();
-    CreateAnActivityVM = new CreateAnActivityVM(client);
-    SearchViewController controller = new SearchViewController(vm);
-    String viewTitle = "Search";
-    String viewSubPath = "search/SearchView.fxml";
+    CreateAnActivityVM vm = new CreateAnActivityVM(client);
+    CreateAnActivityViewController controller = new CreateAnActivityViewController(vm);
+    String viewTitle = "Create";
+    String viewSubPath = "create/CreateAnActivityView.fxml";
     openView(viewTitle, viewSubPath, controller);
   }
 
-  public static void openDescriptionView()
+  public static void openDescriptionView() throws IOException
+  {
+    DescriptionClient client = new SocketDescriptionClient();
+    DescriptionVM vm = new DescriptionVM(client);
+    DescriptionViewController controller = new DescriptionViewController(vm);
+    String viewTitle = "Description";
+    String viewSubPath = "description/DescriptionView.fxml";
+    openView(viewTitle, viewSubPath, controller);
+  }
 
   private static void openView(String viewTitle, String viewSubPath, Controller controller) throws IOException
   {

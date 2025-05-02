@@ -2,26 +2,36 @@ package model.entities;
 
 public class Activity
 {
+  private int id;
   private String name;
   private String address;
   private String type;
   private String city;
   private String meetingDate;
   private String meetingTime;
-  private int price;
   private String description;
 
-  public Activity(String name, String address, String type, String city,
-      String meetingDate, String meetingTime, int price, String description)
+  public Activity(int id, String name, String address, String type, String city,
+      String meetingDate, String meetingTime, String description)
   {
+    this.id = id;
     this.name = name;
     this.address = address;
     this.type = type;
     this.city = city;
     this.meetingDate = meetingDate;
     this.meetingTime = meetingTime;
-    this.price = price;
     this.description = description;
+  }
+
+  public int getId()
+  {
+    return id;
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
   }
 
   public String getName()
@@ -84,16 +94,6 @@ public class Activity
     this.meetingTime = meetingTime;
   }
 
-  public int getPrice()
-  {
-    return price;
-  }
-
-  public void setPrice(int price)
-  {
-    this.price = price;
-  }
-
   public String getDescription()
   {
     return description;
@@ -103,5 +103,7 @@ public class Activity
   {
     this.description = description;
   }
+
+
 }
 
