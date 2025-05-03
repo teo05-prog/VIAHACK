@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface CreateDAO
 {
-  public Activity create(String name, String type, String address, String city, String meetingDate,
-      String meetingTime, int price, String description);
+  public Activity create(String name, String type, String address, String city,
+      String meetingDate, String meetingTime, int price, String description);
 
   public Activity readById(int id);
 

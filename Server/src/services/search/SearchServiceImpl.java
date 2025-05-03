@@ -5,7 +5,8 @@ import persistance.search.SearchPostgresDAO;
 
 import java.util.List;
 
-public class SearchServiceImpl implements SearchService {
+public class SearchServiceImpl implements SearchService
+{
   private final SearchPostgresDAO searchPostgresDAO;
 
   public SearchServiceImpl(SearchPostgresDAO searchPostgresDAO)
@@ -13,8 +14,8 @@ public class SearchServiceImpl implements SearchService {
     this.searchPostgresDAO = searchPostgresDAO;
   }
 
-  @Override
-  public List<Activity> search(String city, String type) {
+  @Override public List<Activity> search(String city, String type)
+  {
     return searchPostgresDAO.search(city, type);
   }
 

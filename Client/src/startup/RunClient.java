@@ -5,8 +5,7 @@ import javafx.stage.Stage;
 
 public class RunClient extends Application
 {
-  @Override
-  public void start(Stage stage) throws Exception
+  @Override public void start(Stage stage) throws Exception
   {
     ViewHandler viewHandler = new ViewHandler(stage);
     viewHandler.start();

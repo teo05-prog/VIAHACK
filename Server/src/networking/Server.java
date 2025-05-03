@@ -22,7 +22,8 @@ public class Server
     while (true)
     {
       Socket socket = serverSocket.accept();
-      MainSocketHandler socketHandler = new MainSocketHandler(socket, serviceProvider);
+      MainSocketHandler socketHandler = new MainSocketHandler(socket,
+          serviceProvider);
       Thread socketThread = new Thread(socketHandler);
       socketThread.start();
     }

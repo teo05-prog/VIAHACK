@@ -23,22 +23,24 @@ public class SearchViewController implements Controller
   @FXML private TableColumn<Activity, String> timeColumn;
   @FXML private TableColumn<Activity, String> priceColumn;
   @FXML private Button continueButton;
+  @FXML private Button backButton;
 
   private final SearchVM viewModel;
-
 
   public SearchViewController(SearchVM vm)
   {
     this.viewModel = vm;
   }
 
-  @FXML public void initialize(){
+  @FXML public void initialize()
+  {
     cityComboBox.setItems(viewModel.getCities());
     typeComboBox.setItems(viewModel.getTypes());
 
-    cityComboBox.valueProperty().bindBidirectional(viewModel.selectedCityProperty());
-    typeComboBox.valueProperty().bindBidirectional(
-        viewModel.selectedTypeProperty());
+    cityComboBox.valueProperty()
+        .bindBidirectional(viewModel.selectedCityProperty());
+    typeComboBox.valueProperty()
+        .bindBidirectional(viewModel.selectedTypeProperty());
 
     activityTable.setItems(viewModel.getFilteredActivities());
 
@@ -52,20 +54,31 @@ public class SearchViewController implements Controller
 
     createAnActivityButton.setOnAction(e -> onCreateAnActivityButton());
 
-    continueButton.setOnAction(e-> onContinueButton());
+    continueButton.setOnAction(e -> onContinueButton());
+
+    backButton.setOnAction(e -> onBackButton());
   }
 
-  private void onCreateAnActivityButton(){
+  private void onBackButton()
+  {
+    ViewHandler.showView(ViewType.SEARCH);
+  }
+
+  private void onCreateAnActivityButton()
+  {
     ViewHandler.showView(ViewType.CREATE);
   }
 
-  private void onContinueButton(){
+  private void onContinueButton()
+  {
     Activity selected = activityTable.getSelectionModel().getSelectedItem();
-    if (selected == null){
+    if (selected == null)
+    {
       showAlert("No Selection", "Please select an activity first.");
       return;
     }
     viewModel.setSelectedActivity(selected);
+    ViewHandler.showView(ViewType.DESCRIPTION);
   }
 
   private void showAlert(String title, String message)

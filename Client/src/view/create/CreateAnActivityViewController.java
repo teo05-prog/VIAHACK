@@ -2,6 +2,8 @@ package view.create;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import startup.ViewHandler;
+import startup.ViewType;
 import view.common.Controller;
 import viewModel.CreateAnActivityVM;
 
@@ -18,6 +20,7 @@ public class CreateAnActivityViewController implements Controller
   @FXML private TextField priceInput;
   @FXML private TextField descriptionInput;
   @FXML private Button saveButton;
+  @FXML private Button backButton;
 
   private final CreateAnActivityVM viewModel;
 
@@ -99,6 +102,11 @@ public class CreateAnActivityViewController implements Controller
     priceInput.setText(String.valueOf(viewModel.getPrice()));
     descriptionInput.textProperty().bindBidirectional(
         viewModel.descriptionProperty());
+
+    backButton.setOnAction(e -> onBackButton());
   }
 
+  private void onBackButton(){
+    ViewHandler.showView(ViewType.SEARCH);
+  }
 }

@@ -17,10 +17,9 @@ import viewModel.DescriptionVM;
 import viewModel.SearchVM;
 import view.common.Controller;
 
-
 import java.io.IOException;
 
-public class ViewHandler 
+public class ViewHandler
 {
   private static Stage stage;
 
@@ -28,7 +27,7 @@ public class ViewHandler
   {
     this.stage = stage;
   }
-  
+
   public void start()
   {
     showView(ViewType.SEARCH);
@@ -68,7 +67,8 @@ public class ViewHandler
   {
     CreateClient client = new SocketCreateClient();
     CreateAnActivityVM vm = new CreateAnActivityVM(client);
-    CreateAnActivityViewController controller = new CreateAnActivityViewController(vm);
+    CreateAnActivityViewController controller = new CreateAnActivityViewController(
+        vm);
     String viewTitle = "Create";
     String viewSubPath = "create/CreateAnActivityView.fxml";
     openView(viewTitle, viewSubPath, controller);
@@ -84,9 +84,11 @@ public class ViewHandler
     openView(viewTitle, viewSubPath, controller);
   }
 
-  private static void openView(String viewTitle, String viewSubPath, Controller controller) throws IOException
+  private static void openView(String viewTitle, String viewSubPath,
+      Controller controller) throws IOException
   {
-    FXMLLoader fxmlLoader = new FXMLLoader(ViewHandler.class.getResource("../view/" + viewSubPath));
+    FXMLLoader fxmlLoader = new FXMLLoader(
+        ViewHandler.class.getResource("../view/" + viewSubPath));
     fxmlLoader.setControllerFactory(ignore -> controller);
 
     Scene scene = new Scene(fxmlLoader.load());

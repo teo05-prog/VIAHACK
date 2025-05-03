@@ -34,6 +34,7 @@ public class CreatePostgresDAO implements CreateDAO
   }
 
   private static final Map<String, Integer> ACTIVITY_TYPES = new HashMap<>();
+
   static
   {
     ACTIVITY_TYPES.put("Music", 1);
@@ -46,8 +47,8 @@ public class CreatePostgresDAO implements CreateDAO
     ACTIVITY_TYPES.put("Fitness", 8);
     ACTIVITY_TYPES.put("Film", 9);
     ACTIVITY_TYPES.put("Nature", 10);
-
   }
+
   @Override public Activity create(String name, String type, String address,
       String city, String meetingDate, String meetingTime, int price,
       String description)
@@ -67,7 +68,7 @@ public class CreatePostgresDAO implements CreateDAO
       System.out.println("Description: " + description);
 
       int typeId;
-      switch(type)
+      switch (type)
       {
         case "Music":
           typeId = 1;
@@ -203,23 +204,22 @@ public class CreatePostgresDAO implements CreateDAO
     return null;
   }
 
-  public List<Activity> readAll(){
+  public List<Activity> readAll()
+  {
     List<Activity> result = new ArrayList<>();
-    try(Connection connection = getConnection()){
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM activity;");
+    try (Connection connection = getConnection())
+    {
+      PreparedStatement statement = connection.prepareStatement(
+          "SELECT * FROM activity;");
       ResultSet resultSet = statement.executeQuery();
-      while (resultSet.next()){
-        Activity activity = new Activity(
-            resultSet.getInt("id"),
-            resultSet.getString("name"),
-            resultSet.getString("type"),
-            resultSet.getString("address"),
-            resultSet.getString("city"),
+      while (resultSet.next())
+      {
+        Activity activity = new Activity(resultSet.getInt("id"),
+            resultSet.getString("name"), resultSet.getString("type"),
+            resultSet.getString("address"), resultSet.getString("city"),
             resultSet.getString("meeting_date"),
-            resultSet.getString("meeting_time"),
-            resultSet.getInt("price"),
-            resultSet.getString("description")
-        );
+            resultSet.getString("meeting_time"), resultSet.getInt("price"),
+            resultSet.getString("description"));
         result.add(activity);
       }
     }

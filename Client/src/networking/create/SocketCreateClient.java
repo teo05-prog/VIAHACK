@@ -8,7 +8,7 @@ public class SocketCreateClient implements CreateClient
 {
   @Override public void createActivity(CreateActivityRequest activity)
   {
-    Request request = new Request("create","create",activity);
+    Request request = new Request("create", "create", activity);
     SocketService.sendRequest(request);
   }
 }

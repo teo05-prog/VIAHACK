@@ -12,12 +12,12 @@ import dtos.search.SearchRequest;
 
 import java.util.List;
 
-
 public class SearchVM
 {
   private final SearchClient searchClient;
 
-  public SearchVM(SearchClient searchClient) {
+  public SearchVM(SearchClient searchClient)
+  {
     this.searchClient = searchClient;
 
     selectedCity.addListener((obs, oldVal, newVal) -> applyFilters());
@@ -26,13 +26,12 @@ public class SearchVM
     loadActivities();
   }
 
-
   private final ObservableList<String> cities = FXCollections.observableArrayList(
-      "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
+      "", "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
       "Frederiksberg", "Roskilde", "Vejle", "Kolding");
   private final ObservableList<String> types = FXCollections.observableArrayList(
-      "Music", "Sports", "Technology", "Art", "Literature", "Gaming", "Cooking",
-      "Fitness", "Film", "Nature");
+      "", "Music", "Sports", "Technology", "Art", "Literature", "Gaming",
+      "Cooking", "Fitness", "Film", "Nature");
 
   private final StringProperty selectedCity = new SimpleStringProperty();
   private final StringProperty selectedType = new SimpleStringProperty();
@@ -44,14 +43,17 @@ public class SearchVM
 
   public void loadActivities()
   {
-    try{
-    SearchRequest request = new SearchRequest(null, null);
-    System.out.println("Sending search request: " + request);
-    List<Activity> activities = searchClient.search(request);
-    System.out.println("Received activities: " + activities.size());
-    allActivities.setAll(activities);
-    applyFilters();}
-    catch (Exception e){
+    try
+    {
+      SearchRequest request = new SearchRequest("", "");
+      System.out.println("Sending search request: " + request);
+      List<Activity> activities = searchClient.search(request);
+      System.out.println("Received activities: " + activities.size());
+      allActivities.setAll(activities);
+      applyFilters();
+    }
+    catch (Exception e)
+    {
       System.err.println("Failed to load activities: " + e.getMessage());
       e.printStackTrace();
     }

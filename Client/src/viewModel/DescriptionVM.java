@@ -10,23 +10,25 @@ public class DescriptionVM
   private final StringProperty name = new SimpleStringProperty("");
   private final StringProperty description = new SimpleStringProperty("");
 
-  public StringProperty nameProperty(){
+  public StringProperty nameProperty()
+  {
     return name;
   }
 
-  public StringProperty descriptionProperty(){
+  public StringProperty descriptionProperty()
+  {
     return description;
   }
 
-  public String getName(){
+  public String getName()
+  {
     return name.get();
   }
 
-  public String getDescription(){
+  public String getDescription()
+  {
     return description.get();
   }
-
-
 
   public DescriptionVM(DescriptionClient descriptionService)
   {

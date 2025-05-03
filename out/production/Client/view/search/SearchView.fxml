@@ -37,7 +37,7 @@
                   <Insets />
                </HBox.margin>
             </ComboBox>
-            <Button fx:id="createAnActivityButton" mnemonicParsing="false"  style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-background-radius: 10;" text="Create an activity">
+            <Button fx:id="createAnActivityButton" mnemonicParsing="false" style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-background-radius: 10;" text="Create an activity">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -55,7 +55,7 @@
             <Insets top="5.0" />
          </VBox.margin>
       </Label>
-      <TableView  fx:id="activityTable" prefHeight="180.0" prefWidth="520.0" style="-fx-background-color: white;">
+      <TableView fx:id="activityTable" prefHeight="180.0" prefWidth="520.0" style="-fx-background-color: white;">
         <columns>
           <TableColumn fx:id="cityColumn" prefWidth="75.0" style="-fx-background-color: FF9149;" text="City" />
             <TableColumn fx:id="nameColumn" prefWidth="75.0" style="-fx-background-color: FFECDB;" text="Name" />
@@ -69,13 +69,25 @@
             <Insets top="10.0" />
          </VBox.margin>
       </TableView>
-      <Button fx:id="continueButton" mnemonicParsing="false" style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16;" text="Continue">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-         <VBox.margin>
-            <Insets left="420.0" top="10.0" />
-         </VBox.margin>
-      </Button>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="backButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-border-radius: 6; -fx-padding: 8 16;" text="Refresh">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="continueButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16;" text="Continue">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="360.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </VBox>

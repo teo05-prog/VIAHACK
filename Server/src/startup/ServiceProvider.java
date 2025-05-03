@@ -27,10 +27,12 @@ public class ServiceProvider
   {
     return new SearchRequestHandler(getSearchService(), getSearchDao());
   }
+
   private static CreateService getCreateService()
   {
     return new CreateServiceImpl(getCreateDao());
   }
+
   private static SearchService getSearchService()
   {
     return new SearchServiceImpl(getSearchDao());
@@ -44,7 +46,8 @@ public class ServiceProvider
     }
     catch (SQLException e)
     {
-      throw new RuntimeException("Failed to initialize DAO", e); // or handle as needed
+      throw new RuntimeException("Failed to initialize DAO",
+          e); // or handle as needed
     }
   }
 
@@ -56,9 +59,11 @@ public class ServiceProvider
     }
     catch (SQLException e)
     {
-      throw new RuntimeException("Failed to initialize DAO", e); // or handle as needed
+      throw new RuntimeException("Failed to initialize DAO",
+          e); // or handle as needed
     }
   }
+
   public Logger getLogger()
   {
     return new ConsoleLogger(LogLevel.INFO);

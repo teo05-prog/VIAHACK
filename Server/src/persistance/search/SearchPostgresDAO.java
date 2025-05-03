@@ -17,6 +17,7 @@ public class SearchPostgresDAO implements SearchDAO
   private static SearchPostgresDAO instance;
 
   private static final Map<Integer, String> TYPE_NAMES = new HashMap<>();
+
   static
   {
     TYPE_NAMES.put(1, "Music");
@@ -51,10 +52,9 @@ public class SearchPostgresDAO implements SearchDAO
     try (Connection connection = getConnection())
     {
       StringBuilder query = new StringBuilder(
-          "SELECT a.event_id, a.name, a.type, a.address, a.city, " +
-              "a.meeting_date, a.meeting_time, a.price, a.description " +
-              "FROM activity a " +
-              "WHERE 1=1 ");
+          "SELECT a.event_id, a.name, a.type, a.address, a.city, "
+              + "a.meeting_date, a.meeting_time, a.price, a.description "
+              + "FROM activity a " + "WHERE 1=1 ");
 
       List<Object> params = new ArrayList<>();
 
@@ -75,15 +75,15 @@ public class SearchPostgresDAO implements SearchDAO
             break;
           }
         }
-          if (typeId != null)
-          {
-            query.append("AND a.type = ? ");
-            params.add(typeId);
-          }
+        if (typeId != null)
+        {
+          query.append("AND a.type = ? ");
+          params.add(typeId);
         }
+      }
 
-        System.out.println("Executing query: " + query.toString());
-        System.out.println("Parameters: " + params);
+      System.out.println("Executing query: " + query.toString());
+      System.out.println("Parameters: " + params);
 
       PreparedStatement statement = connection.prepareStatement(
           query.toString());
@@ -95,7 +95,7 @@ public class SearchPostgresDAO implements SearchDAO
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next())
       {
-        int id = resultSet.getInt("event_id");
+        int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         int typeId = resultSet.getInt("type");
         String typeName = TYPE_NAMES.get(typeId);
@@ -107,9 +107,8 @@ public class SearchPostgresDAO implements SearchDAO
         String description = resultSet.getString("description");
 
         results.add(
-            new Activity(id, name, typeName, address, cityName,
-                meetingDate, meetingTime, price, description)
-        );
+            new Activity(id, name, typeName, address, cityName, meetingDate,
+                meetingTime, price, description));
       }
       System.out.println("Found " + results.size() + " activities");
     }
@@ -126,9 +125,9 @@ public class SearchPostgresDAO implements SearchDAO
     List<Activity> results = new ArrayList<>();
     try (Connection connection = getConnection())
     {
-      String query = "SELECT a.event_id, a.name, a.type, a.address, a.city, " +
-          "a.meeting_date, a.meeting_time, a.price, a.description " +
-          "FROM activity a";
+      String query = "SELECT a.event_id, a.name, a.type, a.address, a.city, "
+          + "a.meeting_date, a.meeting_time, a.price, a.description "
+          + "FROM activity a";
 
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet resultSet = statement.executeQuery();
@@ -147,9 +146,8 @@ public class SearchPostgresDAO implements SearchDAO
         String description = resultSet.getString("description");
 
         results.add(
-            new Activity(id, name, typeName, address, cityName,
-                meetingDate, meetingTime, price, description)
-        );
+            new Activity(id, name, typeName, address, cityName, meetingDate,
+                meetingTime, price, description));
       }
     }
     catch (SQLException e)

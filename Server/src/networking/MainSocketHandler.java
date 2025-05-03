@@ -16,12 +16,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Arrays;
 import java.sql.SQLException;
+
 import utilities.Logger;
 import utilities.LogLevel;
 
 public class MainSocketHandler implements Runnable
 {
-  
+
   private final Socket clientSocket;
   private final ServiceProvider serviceProvider;
   private final Logger logger;
@@ -33,13 +34,14 @@ public class MainSocketHandler implements Runnable
     logger = serviceProvider.getLogger();
   }
 
-  @Override
-  public void run()
+  @Override public void run()
   {
     try
     {
-      ObjectInputStream incomingData = new ObjectInputStream(clientSocket.getInputStream());
-      ObjectOutputStream outgoingData = new ObjectOutputStream(clientSocket.getOutputStream());
+      ObjectInputStream incomingData = new ObjectInputStream(
+          clientSocket.getInputStream());
+      ObjectOutputStream outgoingData = new ObjectOutputStream(
+          clientSocket.getOutputStream());
       handleRequestWithErrorHandling(incomingData, outgoingData);
     }
     catch (IOException e)
@@ -58,7 +60,8 @@ public class MainSocketHandler implements Runnable
     }
   }
 
-  private void handleRequestWithErrorHandling(ObjectInputStream incomingData, ObjectOutputStream outgoingData) throws IOException
+  private void handleRequestWithErrorHandling(ObjectInputStream incomingData,
+      ObjectOutputStream outgoingData) throws IOException
   {
     try
     {
@@ -71,8 +74,10 @@ public class MainSocketHandler implements Runnable
       Response error = new Response("ERROR", payload);
       outgoingData.writeObject(error);
     }
-    catch(ServerFailureException e){
-      logger.log(Arrays.toString(e.getStackTrace()) + "\n" + e.getMessage(), LogLevel.ERROR);
+    catch (ServerFailureException e)
+    {
+      logger.log(Arrays.toString(e.getStackTrace()) + "\n" + e.getMessage(),
+          LogLevel.ERROR);
       ErrorResponse payload = new ErrorResponse(e.getMessage());
       Response error = new Response("SERVER_FAILURE", payload);
       outgoingData.writeObject(error);
@@ -93,17 +98,20 @@ public class MainSocketHandler implements Runnable
     }
   }
 
-  private void handleRequest(ObjectInputStream incomingData, ObjectOutputStream outgoingData)
+  private void handleRequest(ObjectInputStream incomingData,
+      ObjectOutputStream outgoingData)
       throws IOException, ClassNotFoundException, SQLException
   {
     Request request = (Request) incomingData.readObject();
-    logger.log("Incoming request: " + request.handler() + "/" + request.action() + ". Body: " + request.payload(), LogLevel.INFO);
+    logger.log("Incoming request: " + request.handler() + "/" + request.action()
+        + ". Body: " + request.payload(), LogLevel.INFO);
 
     RequestHandler handler = switch (request.handler())
     {
       case "create" -> serviceProvider.getCreateRequestHandler();
       case "search" -> serviceProvider.getSearchRequestHandler();
-      default -> throw new IllegalStateException("Unexpected value: " + request.handler());
+      default -> throw new IllegalStateException(
+          "Unexpected value: " + request.handler());
     };
 
     Object result = handler.handle(request.action(), request.payload());
