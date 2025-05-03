@@ -14,7 +14,7 @@
    <children>
       <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="585.0" text="Create a new activity">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
          <VBox.margin>
             <Insets bottom="5.0" />
@@ -25,7 +25,7 @@
             <HBox prefHeight="53.0" prefWidth="453.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="50.0" text="Name">
+                  <Label prefHeight="20.0" prefWidth="56.0" text="Name">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -45,7 +45,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="60.0" text="Address">
+                  <Label prefHeight="20.0" prefWidth="65.0" text="Address">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -62,7 +62,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="40.0" text="Date">
+                  <Label prefHeight="26.0" prefWidth="45.0" text="Date">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -92,7 +92,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="40.0" text="City">
+                  <Label prefHeight="20.0" prefWidth="45.0" text="City">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -121,7 +121,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Price">
+                  <Label prefWidth="40.0" text="Price">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

@@ -185,6 +185,6 @@ public class SearchPostgresDAO implements SearchDAO
   {
     return DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres?currentSchema=viahack",
-        "postgres", "password");
+        "postgres", "141220");
   }
 }

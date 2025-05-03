@@ -30,7 +30,7 @@ public class CreatePostgresDAO implements CreateDAO
   {
     return DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres?currentSchema=viahack",
-        "postgres", "password");
+        "postgres", "141220");
   }
 
   private static final Map<String, Integer> ACTIVITY_TYPES = new HashMap<>();

@@ -12,12 +12,12 @@
    <children>
       <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="660.0" text="Description">
          <font>
-            <Font size="30.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
       <HBox prefHeight="47.0" prefWidth="520.0">
          <children>
-            <Label text="Activity name">
+            <Label text="Activity name:">
                <font>
                   <Font size="20.0" />
                </font>
@@ -32,7 +32,10 @@
             </Label>
          </children>
       </HBox>
-      <TextField fx:id="textInput" prefHeight="200.0" prefWidth="500.0" />
+      <TextField fx:id="textInput" prefHeight="200.0" prefWidth="500.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
       <Button fx:id="backButton" mnemonicParsing="false" style="-fx-background-color: FF9149; -fx-text-fill: white; -fx-border-radius: 6; -fx-padding: 8 16;" text="Back">
          <font>
             <Font name="System Bold" size="13.0" />
