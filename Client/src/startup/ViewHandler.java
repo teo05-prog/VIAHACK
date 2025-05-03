@@ -18,6 +18,7 @@ import viewModel.SearchVM;
 import view.common.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ViewHandler
 {
@@ -51,6 +52,10 @@ public class ViewHandler
     {
       e.printStackTrace();
     }
+    catch (SQLException e)
+    {
+      throw new RuntimeException(e);
+    }
   }
 
   public static void openSearchView() throws IOException
@@ -74,7 +79,7 @@ public class ViewHandler
     openView(viewTitle, viewSubPath, controller);
   }
 
-  public static void openDescriptionView() throws IOException
+  public static void openDescriptionView() throws IOException, SQLException
   {
     DescriptionClient client = new SocketDescriptionClient();
     DescriptionVM vm = new DescriptionVM(client);

@@ -110,6 +110,7 @@ public class MainSocketHandler implements Runnable
     {
       case "create" -> serviceProvider.getCreateRequestHandler();
       case "search" -> serviceProvider.getSearchRequestHandler();
+      case "description" -> serviceProvider.getDescriptionRequestHandler();
       default -> throw new IllegalStateException(
           "Unexpected value: " + request.handler());
     };

@@ -3,11 +3,14 @@ package startup;
 import networking.requestHandlers.CreateRequestHandler;
 import networking.requestHandlers.RequestHandler;
 import networking.requestHandlers.SearchRequestHandler;
+import networking.requestHandlers.DescriptionRequestHandler;
 import persistance.create.CreateDAO;
 import persistance.create.CreatePostgresDAO;
 import persistance.search.SearchPostgresDAO;
 import services.create.CreateService;
 import services.create.CreateServiceImpl;
+import services.description.DescriptionService;
+import services.description.DescriptionServiceImpl;
 import services.search.SearchService;
 import services.search.SearchServiceImpl;
 import utilities.ConsoleLogger;
@@ -28,6 +31,11 @@ public class ServiceProvider
     return new SearchRequestHandler(getSearchService(), getSearchDao());
   }
 
+  public RequestHandler getDescriptionRequestHandler()
+  {
+    return new DescriptionRequestHandler(getDescriptionService());
+  }
+
   private static CreateService getCreateService()
   {
     return new CreateServiceImpl(getCreateDao());
@@ -37,6 +45,13 @@ public class ServiceProvider
   {
     return new SearchServiceImpl(getSearchDao());
   }
+
+  private static DescriptionService getDescriptionService()
+  {
+    return new DescriptionServiceImpl(getSearchDao());
+  }
+
+
 
   private static CreateDAO getCreateDao()
   {
@@ -59,8 +74,7 @@ public class ServiceProvider
     }
     catch (SQLException e)
     {
-      throw new RuntimeException("Failed to initialize DAO",
-          e); // or handle as needed
+      throw new RuntimeException("Failed to initial e"); // or handle as needed
     }
   }
 

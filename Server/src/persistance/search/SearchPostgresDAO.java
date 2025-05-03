@@ -158,6 +158,29 @@ public class SearchPostgresDAO implements SearchDAO
     return results;
   }
 
+  public String getActivityDescription(int activityId)
+  {
+    String description = null;
+    try (Connection connection = getConnection())
+    {
+      String query = "SELECT description FROM activity WHERE event_id = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, activityId);
+
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next())
+      {
+        description = resultSet.getString("description");
+      }
+    }
+    catch (SQLException e)
+    {
+      System.err.println("SQL Error in getActivityDescription: " + e.getMessage());
+      e.printStackTrace();
+    }
+    return description;
+  }
+
   private static Connection getConnection() throws SQLException
   {
     return DriverManager.getConnection(
