@@ -17,11 +17,15 @@ public class SearchVM
 {
   private final SearchClient searchClient;
 
-  public SearchVM(SearchClient searchClient)
-  {
+  public SearchVM(SearchClient searchClient) {
     this.searchClient = searchClient;
+
+    selectedCity.addListener((obs, oldVal, newVal) -> applyFilters());
+    selectedType.addListener((obs, oldVal, newVal) -> applyFilters());
+
     loadActivities();
   }
+
 
   private final ObservableList<String> cities = FXCollections.observableArrayList(
       "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
