@@ -33,14 +33,16 @@ public class CreateAnActivityViewController implements Controller
     String city = cityComboBox.getValue();
     String type = typeComboBox.getValue();
 
+
     if (name.isEmpty() || address.isEmpty() || date == null || time == null
-        || city == null || type == null)
+        || city == null || type == null )
     {
       showAlert("Error", "Please fill all the required fields");
       return;
     }
     viewModel.save();
-    ViewHandler.showView(ViewType.SEARCH);
+    showAlert("Success", "Activity was successfully added.");
+//    ViewHandler.showView(ViewType.SEARCH);
   }
 
   private void showAlert(String title, String message)

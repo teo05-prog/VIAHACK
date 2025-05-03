@@ -26,11 +26,9 @@ public class SearchVM
     loadActivities();
   }
 
-  private final ObservableList<String> cities = FXCollections.observableArrayList(
-      "", "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
+  private final ObservableList<String> cities = FXCollections.observableArrayList("Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers",
       "Frederiksberg", "Roskilde", "Vejle", "Kolding");
-  private final ObservableList<String> types = FXCollections.observableArrayList(
-      "", "Music", "Sports", "Technology", "Art", "Literature", "Gaming",
+  private final ObservableList<String> types = FXCollections.observableArrayList("Music", "Sports", "Technology", "Art", "Literature", "Gaming",
       "Cooking", "Fitness", "Film", "Nature");
 
   private final StringProperty selectedCity = new SimpleStringProperty();
