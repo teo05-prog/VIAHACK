@@ -78,6 +78,7 @@ public class SearchViewController implements Controller
       return;
     }
     viewModel.setSelectedActivity(selected);
+    ViewHandler.setActivityData(selected.getName(), selected.getId());
     ViewHandler.showView(ViewType.DESCRIPTION);
   }
 

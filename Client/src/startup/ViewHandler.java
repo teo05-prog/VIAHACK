@@ -24,6 +24,10 @@ public class ViewHandler
 {
   private static Stage stage;
 
+  private static String tempActivityName;
+  private static int tempActivityId;
+  private static boolean hasActivityData = false;
+
   public ViewHandler(Stage stage)
   {
     this.stage = stage;
@@ -34,6 +38,13 @@ public class ViewHandler
     showView(ViewType.SEARCH);
     //showView(ViewType.CREATE);
     stage.show();
+  }
+
+  public static void setActivityData(String activityName, int activityId)
+  {
+    tempActivityName = activityName;
+    tempActivityId = activityId;
+    hasActivityData = true;
   }
 
   public static void showView(ViewType viewToShow)
@@ -79,11 +90,23 @@ public class ViewHandler
     openView(viewTitle, viewSubPath, controller);
   }
 
+  public static void showDescriptionView(String activityName, int activityId) {
+    setActivityData(activityName, activityId);
+    showView(ViewType.DESCRIPTION);
+  }
+
   public static void openDescriptionView() throws IOException, SQLException
   {
     DescriptionClient client = new SocketDescriptionClient();
     DescriptionVM vm = new DescriptionVM(client);
     DescriptionViewController controller = new DescriptionViewController(vm);
+
+    if (hasActivityData) {
+      controller.setActivityData(tempActivityName, tempActivityId);
+      // Clear the flag after use
+      hasActivityData = false;
+    }
+
     String viewTitle = "Description";
     String viewSubPath = "description/DescriptionView.fxml";
     openView(viewTitle, viewSubPath, controller);

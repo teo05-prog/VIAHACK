@@ -24,22 +24,46 @@ public class DescriptionViewController implements Controller
 
   private final DescriptionService descriptionService = new DescriptionServiceImpl(
       SearchPostgresDAO.getInstance());
+  
+  private String activityName;
+  private int activityId;
 
   public DescriptionViewController(DescriptionVM vm) throws SQLException
   {
     this.viewModel = vm;
   }
 
-  public void initialize(int activityId, String activityName)
+  public void setActivityData(String activityName, int activityId)
+  {
+    this.activityName = activityName;
+    this.activityId = activityId;
+    
+    if(nameLabel != null)
+    {
+      updateUI();
+    }
+  }
+
+  @FXML public void initialize()
+  {
+    nameLabel.textProperty().bindBidirectional(viewModel.nameProperty());
+    textInput.textProperty().bindBidirectional(viewModel.descriptionProperty());
+    backButton.setOnAction(e -> onBackButton());
+
+    if(activityName != null)
+    {
+      updateUI();
+    }
+  }
+
+  private void updateUI()
   {
     nameLabel.setText(activityName);
     String description = descriptionService.getActivityDescription(activityId);
     textInput.setText(description != null ? description : "No description available.");
 
-    nameLabel.textProperty().bind(viewModel.nameProperty());
-    textInput.textProperty().bind(viewModel.descriptionProperty());
-
-    backButton.setOnAction(e -> onBackButton());
+    viewModel.nameProperty().set(activityName);
+    viewModel.descriptionProperty().set(description != null ? description : "No description available.");
   }
 
   private void onBackButton()

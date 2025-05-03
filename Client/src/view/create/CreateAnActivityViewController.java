@@ -56,7 +56,7 @@ public class CreateAnActivityViewController implements Controller
     this.viewModel = vm;
   }
 
-  public void initialize(){
+ @FXML public void initialize(){
     nameInput.textProperty().bindBidirectional(viewModel.nameProperty());
     addressInput.textProperty().bindBidirectional(viewModel.addressProperty());
     dateInput.valueProperty().bindBidirectional(viewModel.dateProperty());
