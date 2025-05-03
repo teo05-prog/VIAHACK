@@ -4,7 +4,7 @@ import dtos.search.ActivityDTO;
 import dtos.search.SearchRequest;
 import dtos.search.SearchResponse;
 import model.entities.Activity;
-import persistance.search.CreateSearchDAO;
+import persistance.search.SearchPostgresDAO;
 import services.search.SearchService;
 import services.search.SearchServiceImpl;
 
@@ -16,9 +16,9 @@ public class SearchRequestHandler implements RequestHandler {
   private final SearchService searchService;
 
   public SearchRequestHandler(SearchService searchService,
-      CreateSearchDAO createSearchDao) {
-    this.searchService = new SearchServiceImpl(getCreateSearchDao(
-        createSearchDao));
+      SearchPostgresDAO searchPostgresDAO) {
+    this.searchService = new SearchServiceImpl(getSearchPostgresDao(
+        searchPostgresDAO));
   }
 
   @Override
@@ -49,8 +49,8 @@ public class SearchRequestHandler implements RequestHandler {
     );
   }
 
-  public CreateSearchDAO getCreateSearchDao(CreateSearchDAO createSearchDao)
+  public SearchPostgresDAO getSearchPostgresDao(SearchPostgresDAO searchPostgresDAO)
   {
-    return createSearchDao;
+    return searchPostgresDAO;
   }
 }

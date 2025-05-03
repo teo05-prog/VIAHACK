@@ -8,7 +8,6 @@ import model.exceptions.ValidationException;
 import networking.exceptions.InvalidActionException;
 import model.exceptions.ServerFailureException;
 import networking.requestHandlers.RequestHandler;
-import persistance.search.CreateSearchDAO;
 import startup.ServiceProvider;
 
 import java.io.IOException;
@@ -103,6 +102,7 @@ public class MainSocketHandler implements Runnable
     RequestHandler handler = switch (request.handler())
     {
       case "create" -> serviceProvider.getCreateRequestHandler();
+      case "search" -> serviceProvider.getSearchRequestHandler();
       default -> throw new IllegalStateException("Unexpected value: " + request.handler());
     };
 

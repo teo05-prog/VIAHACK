@@ -203,6 +203,33 @@ public class CreatePostgresDAO implements CreateDAO
     return null;
   }
 
+  public List<Activity> readAll(){
+    List<Activity> result = new ArrayList<>();
+    try(Connection connection = getConnection()){
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM activity;");
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()){
+        Activity activity = new Activity(
+            resultSet.getInt("id"),
+            resultSet.getString("name"),
+            resultSet.getString("type"),
+            resultSet.getString("address"),
+            resultSet.getString("city"),
+            resultSet.getString("meeting_date"),
+            resultSet.getString("meeting_time"),
+            resultSet.getInt("price"),
+            resultSet.getString("description")
+        );
+        result.add(activity);
+      }
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
   public void update(Activity activity)
   {
     try (Connection connection = getConnection())

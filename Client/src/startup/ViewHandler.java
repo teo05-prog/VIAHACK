@@ -31,8 +31,8 @@ public class ViewHandler
   
   public void start()
   {
-//    showView(ViewType.SEARCH);
-    showView(ViewType.CREATE);
+    showView(ViewType.SEARCH);
+    //showView(ViewType.CREATE);
     stage.show();
   }
 

@@ -5,7 +5,7 @@ import networking.requestHandlers.RequestHandler;
 import networking.requestHandlers.SearchRequestHandler;
 import persistance.create.CreateDAO;
 import persistance.create.CreatePostgresDAO;
-import persistance.search.CreateSearchDAO;
+import persistance.search.SearchPostgresDAO;
 import services.create.CreateService;
 import services.create.CreateServiceImpl;
 import services.search.SearchService;
@@ -23,9 +23,9 @@ public class ServiceProvider
     return new CreateRequestHandler(getCreateService());
   }
 
-  public RequestHandler getSearchRequestHandler(CreateSearchDAO createSearchDao)
+  public RequestHandler getSearchRequestHandler()
   {
-    return new SearchRequestHandler(getSearchService(), createSearchDao);
+    return new SearchRequestHandler(getSearchService(), getSearchDao());
   }
   private static CreateService getCreateService()
   {
@@ -33,7 +33,7 @@ public class ServiceProvider
   }
   private static SearchService getSearchService()
   {
-    return new SearchServiceImpl(getCreateSearchDao());
+    return new SearchServiceImpl(getSearchDao());
   }
 
   private static CreateDAO getCreateDao()
@@ -48,11 +48,11 @@ public class ServiceProvider
     }
   }
 
-  private static CreateSearchDAO getCreateSearchDao()
+  private static SearchPostgresDAO getSearchDao()
   {
     try
     {
-      return CreateSearchDAO.getInstance();
+      return SearchPostgresDAO.getInstance();
     }
     catch (SQLException e)
     {

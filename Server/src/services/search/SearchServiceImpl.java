@@ -1,25 +1,26 @@
 package services.search;
 
 import model.entities.Activity;
-import persistance.search.SearchDAO;
-import persistance.search.CreateSearchDAO;
+import persistance.search.SearchPostgresDAO;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class SearchServiceImpl implements SearchService {
-  private final SearchDAO searchDAO;
+  private final SearchPostgresDAO searchPostgresDAO;
 
-  public SearchServiceImpl(CreateSearchDAO createSearchDao) {
-    try {
-      this.searchDAO = CreateSearchDAO.getInstance();
-    } catch (SQLException e) {
-      throw new RuntimeException("Could not initialize search service", e);
-    }
+  public SearchServiceImpl(SearchPostgresDAO searchPostgresDAO)
+  {
+    this.searchPostgresDAO = searchPostgresDAO;
   }
 
   @Override
   public List<Activity> search(String city, String type) {
-    return searchDAO.search(city, type);
+    return searchPostgresDAO.search(city, type);
+  }
+
+  // Optional: method to fetch all activities
+  public List<Activity> getAllActivities()
+  {
+    return searchPostgresDAO.getAllActivities();
   }
 }
