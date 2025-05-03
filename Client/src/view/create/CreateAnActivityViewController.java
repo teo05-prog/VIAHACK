@@ -40,6 +40,7 @@ public class CreateAnActivityViewController implements Controller
       return;
     }
     viewModel.save();
+    ViewHandler.showView(ViewType.SEARCH);
   }
 
   private void showAlert(String title, String message)
